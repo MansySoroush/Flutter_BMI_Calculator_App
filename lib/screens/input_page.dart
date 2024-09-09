@@ -4,6 +4,11 @@ import 'package:bmi_calculator/components/icon_content.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+enum Gender {
+  male,
+  female,
+}
+
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
@@ -12,6 +17,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender selectedGender = Gender.male;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,20 +27,34 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: [
-          const Expanded(
+          Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColour,
-                    cardChild:
-                        IconContent(icon: FontAwesomeIcons.mars, label: 'MALE'),
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    colour: selectedGender == Gender.male
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
+                    cardChild: const IconContent(
+                        icon: FontAwesomeIcons.mars, label: 'MALE'),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColour,
-                    cardChild: IconContent(
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    colour: selectedGender == Gender.female
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
+                    cardChild: const IconContent(
                         icon: FontAwesomeIcons.venus, label: 'FEMALE'),
                   ),
                 ),
